@@ -22,7 +22,7 @@ export class Login {
     }
 
     async enterOtp(otp: string){
-        for(let i=1; i< otp.length; i++){
+        for(let i=1; i<=otp.length; i++){
             await this.page.getByRole('textbox', { name: `Please enter OTP character ${i}`}).fill(otp[i-1])
         }
         await this.page.locator(`button[type='submit']`).click()

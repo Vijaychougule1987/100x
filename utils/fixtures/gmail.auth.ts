@@ -14,8 +14,9 @@ const __dirname = path.dirname(__filename);
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
-const TOKEN_PATH = path.join(__dirname, 'token.json');
-const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
+const ROOT = process.cwd()
+const TOKEN_PATH = path.join(ROOT, 'token.json');
+const CREDENTIALS_PATH = path.join(ROOT, 'credentials.json');
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
