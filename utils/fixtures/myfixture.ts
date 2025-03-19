@@ -19,10 +19,10 @@ export const test = base.extend<PageObjects>({
         //enter OTP
         
         const login = new Login(page)
-        login.enterEmailAddress('thananjob@gmail.com')
+        await login.enterEmailAddress('thananjob@gmail.com')
         const client = await authorize()
         const otp = await getInbox(client)
-        login.enterOtp(otp)
+        await login.enterOtp(otp)
         await use(login)
     }
 })
@@ -31,7 +31,7 @@ async function loadExtension () {
     const ROOT_DIR = process.cwd(); 
     const pathToExtension = join(ROOT_DIR, 'build-beta-63283ba');
     const browserContext = await chromium.launchPersistentContext('', {
-     // channel: 'chrome',
+      channel: 'chrome',
       headless: false,
       args: [
         `--disable-extensions-except=${pathToExtension}`,
@@ -47,7 +47,8 @@ async function loadExtension () {
       console.log(extensionId)
     const backgroundPage = await browserContext.newPage()
     
-    await backgroundPage.goto(`chrome-extension://${extensionId}/sidepanel.html/#signin`)
+    await backgroundPage.goto(`chrome-extension://${extensionId}/sidepanel.html`)
+    await backgroundPage.waitForTimeout(10000)
     await backgroundPage.reload(); 
     await backgroundPage.waitForTimeout(4000)
   
